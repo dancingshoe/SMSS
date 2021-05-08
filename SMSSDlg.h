@@ -34,4 +34,5 @@ protected:
 public:
 	CStatic m_SetFontZH;
 	CStatic m_SetFontmm;
+	afx_msg void OnBnClickedButtonRegister();
 };

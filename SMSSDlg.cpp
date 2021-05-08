@@ -7,6 +7,7 @@
 #include "SMSS.h"
 #include "SMSSDlg.h"
 #include "afxdialogex.h"
+#include "Register.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -68,6 +69,7 @@ BEGIN_MESSAGE_MAP(CSMSSDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON_Register, &CSMSSDlg::OnBnClickedButtonRegister)
 END_MESSAGE_MAP()
 
 
@@ -159,3 +161,11 @@ HCURSOR CSMSSDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CSMSSDlg::OnBnClickedButtonRegister()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	Register dlg;
+	dlg.DoModal();
+}

@@ -13,6 +13,7 @@
 #endif
 
 
+CFont font;
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
 class CAboutDlg : public CDialogEx
@@ -59,6 +60,8 @@ CSMSSDlg::CSMSSDlg(CWnd* pParent /*=nullptr*/)
 void CSMSSDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_STATIC_zh, m_SetFontZH);
+	DDX_Control(pDX, IDC_STATIC_mm, m_SetFontmm);
 }
 
 BEGIN_MESSAGE_MAP(CSMSSDlg, CDialogEx)
@@ -100,6 +103,9 @@ BOOL CSMSSDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	font.CreatePointFont(200, _T("宋体"));
+	m_SetFontZH.SetFont(&font);
+	m_SetFontmm.SetFont(&font);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

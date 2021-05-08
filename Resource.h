@@ -14,6 +14,8 @@
 #define IDC_BUTTON3                     1002
 #define IDC_STATIC_zh                   1003
 #define IDC_BUTTON_EXPLAIN              1004
+#define IDC_STATIC_zh2                  1005
+#define IDC_STATIC_mm                   1005
 
 // Next default values for new objects
 // 

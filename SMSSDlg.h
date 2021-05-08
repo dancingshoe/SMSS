@@ -31,4 +31,7 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	CStatic m_SetFontZH;
+	CStatic m_SetFontmm;
 };

@@ -35,4 +35,10 @@ public:
 	CStatic m_SetFontZH;
 	CStatic m_SetFontmm;
 	afx_msg void OnBnClickedButtonRegister();
+//	BOOL m_LoginISAdmin;
+	CString m_LoginZH;
+	CString m_LoginMM;
+	afx_msg void OnBnClickedCheckLoginshow();
+	afx_msg void OnBnClickedButtonLogin();
+	BOOL m_ISAdmin;
 };

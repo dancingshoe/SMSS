@@ -8,6 +8,8 @@
 #include "SMSSDlg.h"
 #include "afxdialogex.h"
 #include "Register.h"
+#include "Admin.h"
+#include "User.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -54,6 +56,9 @@ END_MESSAGE_MAP()
 
 CSMSSDlg::CSMSSDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_SMSS_DIALOG, pParent)
+	, m_LoginZH(_T(""))
+	, m_LoginMM(_T(""))
+	, m_ISAdmin(FALSE)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -63,6 +68,10 @@ void CSMSSDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_STATIC_zh, m_SetFontZH);
 	DDX_Control(pDX, IDC_STATIC_mm, m_SetFontmm);
+	//  DDX_Radio(pDX, IDC_RADIO_ISAdmin, m_LoginISAdmin);
+	DDX_Text(pDX, IDC_EDIT_LoginZH, m_LoginZH);
+	DDX_Text(pDX, IDC_EDIT_LoginMM, m_LoginMM);
+	DDX_Check(pDX, IDC_CHECK_ISAdmin, m_ISAdmin);
 }
 
 BEGIN_MESSAGE_MAP(CSMSSDlg, CDialogEx)
@@ -70,6 +79,8 @@ BEGIN_MESSAGE_MAP(CSMSSDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON_Register, &CSMSSDlg::OnBnClickedButtonRegister)
+	ON_BN_CLICKED(IDC_CHECK_LoginShow, &CSMSSDlg::OnBnClickedCheckLoginshow)
+	ON_BN_CLICKED(IDC_BUTTON_Login, &CSMSSDlg::OnBnClickedButtonLogin)
 END_MESSAGE_MAP()
 
 
@@ -168,4 +179,82 @@ void CSMSSDlg::OnBnClickedButtonRegister()
 	// TODO: 在此添加控件通知处理程序代码
 	Register dlg;
 	dlg.DoModal();
+}
+
+
+void CSMSSDlg::OnBnClickedCheckLoginshow()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if (IsDlgButtonChecked(IDC_CHECK_LoginShow) == BST_CHECKED)
+	{
+		UpdateData(true);
+		CEdit* pEdit = (CEdit*)(this)->GetDlgItem(IDC_EDIT_LoginMM);
+		pEdit->SetPasswordChar(0);
+		SetDlgItemText(IDC_EDIT_LoginMM, m_LoginMM);
+		UpdateData(false);
+	}
+	else {
+		UpdateData(true);
+		CEdit* pEdit = (CEdit*)(this)->GetDlgItem(IDC_EDIT_LoginMM);
+		pEdit->SetPasswordChar('*');
+		SetDlgItemText(IDC_EDIT_LoginMM, m_LoginMM);
+		UpdateData(false);
+	}
+	GetDlgItem(IDC_EDIT_LoginMM)->SetFocus();
+}
+
+
+void CSMSSDlg::OnBnClickedButtonLogin()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	UpdateData(TRUE);
+	if (m_LoginZH == "" || m_LoginMM == "") {
+		MessageBox(_T("账号或者密码不可为空！"), _T("错误提示"));
+		return;
+	}
+	//CString strCmd;
+	CString ID, Password;
+	_bstr_t strCmd;
+	AdoSql SSMS;
+	SSMS.InitialConn();
+	//_RecordsetPtr pPtr;
+	if (m_ISAdmin == 0)
+	{
+		SSMS.GetRecordSet(_T("select * from tblUser"));
+		while (!SSMS.m_pRecordSet->adoEOF)
+		{
+			ID = (char*)(_bstr_t)SSMS.m_pRecordSet->GetCollect("UserID");
+			Password = (char*)(_bstr_t)SSMS.m_pRecordSet->GetCollect("UserPasswod");
+			if (m_LoginZH == ID && m_LoginMM == Password)
+			{
+				MessageBox(_T("用户登陆成功"));
+				CDialogEx::OnOK();
+				User dlg;
+				dlg.DoModal();
+				break;
+			}
+			SSMS.m_pRecordSet->MoveNext();
+		}
+		//MessageBox(_T("登陆失败,请检查账号或密码是否正确!"), _T("错误提示!"));
+	}
+	else
+	{
+		SSMS.GetRecordSet(_T("select * from tblAdministrator"));
+		while (!SSMS.m_pRecordSet->adoEOF)
+		{
+			ID = (char*)(_bstr_t)SSMS.m_pRecordSet->GetCollect("AdminID");
+			Password = (char*)(_bstr_t)SSMS.m_pRecordSet->GetCollect("AdminPasswod");
+			if (m_LoginZH == ID && m_LoginMM == Password)
+			{
+				MessageBox(_T("管理员登陆成功"));
+				CDialogEx::OnOK();
+				Admin dlg;
+				dlg.DoModal();
+				break;
+			}
+			SSMS.m_pRecordSet->MoveNext();
+		}
+		//MessageBox(_T("登陆失败,请检查账号或密码是否正确!"),_T("错误提示!"));
+	}
+	UpdateData(FALSE);
 }

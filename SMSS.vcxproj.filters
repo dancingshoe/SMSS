@@ -42,6 +42,18 @@
     <ClInclude Include="Admin.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Buy.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UserChange.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AddCom.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ComChange.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SMSS.cpp">
@@ -60,6 +72,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Admin.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Buy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="UserChange.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AddCom.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ComChange.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

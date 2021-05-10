@@ -183,7 +183,10 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AddCom.h" />
     <ClInclude Include="Admin.h" />
+    <ClInclude Include="Buy.h" />
+    <ClInclude Include="ComChange.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Register.h" />
@@ -192,9 +195,13 @@
     <ClInclude Include="SMSSDlg.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="User.h" />
+    <ClInclude Include="UserChange.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddCom.cpp" />
     <ClCompile Include="Admin.cpp" />
+    <ClCompile Include="Buy.cpp" />
+    <ClCompile Include="ComChange.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -205,6 +212,7 @@
     <ClCompile Include="SMSS.cpp" />
     <ClCompile Include="SMSSDlg.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserChange.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SMSS.rc" />

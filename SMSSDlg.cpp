@@ -15,7 +15,7 @@
 #define new DEBUG_NEW
 #endif
 
-
+CSMSSDlg* CSMSSDlg::pUser = NULL;
 CFont font;
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -68,7 +68,6 @@ void CSMSSDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_STATIC_zh, m_SetFontZH);
 	DDX_Control(pDX, IDC_STATIC_mm, m_SetFontmm);
-	//  DDX_Radio(pDX, IDC_RADIO_ISAdmin, m_LoginISAdmin);
 	DDX_Text(pDX, IDC_EDIT_LoginZH, m_LoginZH);
 	DDX_Text(pDX, IDC_EDIT_LoginMM, m_LoginMM);
 	DDX_Check(pDX, IDC_CHECK_ISAdmin, m_ISAdmin);
@@ -120,6 +119,7 @@ BOOL CSMSSDlg::OnInitDialog()
 	m_SetFontZH.SetFont(&font);
 	m_SetFontmm.SetFont(&font);
 
+	pUser = this;
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -256,5 +256,4 @@ void CSMSSDlg::OnBnClickedButtonLogin()
 		}
 		//MessageBox(_T("登陆失败,请检查账号或密码是否正确!"),_T("错误提示!"));
 	}
-	UpdateData(FALSE);
 }

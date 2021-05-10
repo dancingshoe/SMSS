@@ -20,4 +20,24 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CString m_OrdMess;
+	afx_msg void OnBnClickedButtonStore();
+	afx_msg void OnBnClickedButtonBuy();
+	afx_msg void OnBnClickedButtonManage();
+	afx_msg void OnBnClickedButtonReturn();
+	afx_msg void OnBnClickedButtonChange();
+	afx_msg void OnBnClickedButtonFinduser();
+	virtual BOOL OnInitDialog();
+	CListCtrl m_ListUser;
+	CStatic m_StaticFind;
+	void Display();
+	void DisplayOrder();
+	afx_msg void OnLvnItemchangedListUser(NMHDR* pNMHDR, LRESULT* pResult);
+	static User* pUserdlg;
+//	CString m_BuyMessage;
+	CString m_UserIFO;
+	afx_msg void OnBnClickedUser();
 };
+
+extern int nItem;

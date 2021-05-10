@@ -65,6 +65,7 @@ void Register::OnBnClickedOk()
 	UpdateData(FALSE);
 	MessageBox(_T("注册成功!"), _T("注册成功提示"));
 	Register::OnOK();
+	SSMS.ExitConn();
 }
 
 

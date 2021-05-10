@@ -41,4 +41,5 @@ public:
 	afx_msg void OnBnClickedCheckLoginshow();
 	afx_msg void OnBnClickedButtonLogin();
 	BOOL m_ISAdmin;
+	static CSMSSDlg* pUser;
 };

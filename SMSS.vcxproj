@@ -221,6 +221,9 @@
     <None Include="res\SMSS.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\favicon.ico" />
+    <Image Include="res\OIP.bmp" />
+    <Image Include="res\SMSS.bmp" />
     <Image Include="res\SMSS.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

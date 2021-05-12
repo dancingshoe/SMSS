@@ -42,4 +42,5 @@ public:
 	afx_msg void OnBnClickedButtonLogin();
 	BOOL m_ISAdmin;
 	static CSMSSDlg* pUser;
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

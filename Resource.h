@@ -14,6 +14,9 @@
 #define IDD_DIALOG_UserChange           140
 #define IDD_DIALOG_AddCom               142
 #define IDD_DIALOG_ComChange            144
+#define IDB_BITMAP1                     147
+#define IDB_BITMAP2                     148
+#define IDI_ICON1                       149
 #define IDC_BUTTON_Register             1000
 #define IDC_BUTTON2                     1001
 #define IDC_BUTTON_Annotation           1001
@@ -74,7 +77,6 @@
 #define IDC_STATIC_CComPDate            1051
 #define IDC_STATIC_CComPrice            1052
 #define IDC_STATIC_CComName             1053
-#define IDC_STATIC_CComID               1054
 #define IDC_EDIT_CAddName               1056
 #define IDC_EDIT_CAddPrice              1057
 #define IDC_EDIT_CAddPDate              1058
@@ -86,7 +88,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        146
+#define _APS_NEXT_RESOURCE_VALUE        150
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1062
 #define _APS_NEXT_SYMED_VALUE           101

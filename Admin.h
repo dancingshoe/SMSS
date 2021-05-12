@@ -34,6 +34,9 @@ public:
 	afx_msg void OnBnClickedButtonChangecom();
 	afx_msg void OnBnClickedButtonOrdmanage();
 	static Admin* pAdmindlg;
+	afx_msg void OnBnClickedButtonFindorder();
+	afx_msg void OnPaint();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };
 
 extern int AdminnItem;

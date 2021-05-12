@@ -47,6 +47,8 @@ BEGIN_MESSAGE_MAP(User, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_FindUser, &User::OnBnClickedButtonFinduser)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_User, &User::OnLvnItemchangedListUser)
 	ON_BN_CLICKED(IDCANCEL_User, &User::OnBnClickedUser)
+	ON_WM_CTLCOLOR()
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 void User::Display()
@@ -197,6 +199,19 @@ void User::OnBnClickedButtonChange()
 void User::OnBnClickedButtonFinduser()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	UpdateData(TRUE);
+	DisplayOrder();
+	int nCount = m_ListUser.GetItemCount();
+	for (int i = 0; i < nCount; i++) {
+		if (m_OrdMess == m_ListUser.GetItemText(i, 0)) {
+			m_ListUser.SetFocus();
+		    m_ListUser.SetItemState(i, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);//将查询到的数据变成选中状态
+			return;
+		}
+	}
+	MessageBox(_T("没有查询到相关数据，请检查数据输入是否正确!"), _T("错误提示"), MB_ICONERROR);
+	m_OrdMess = "";
+	UpdateData(FALSE);
 }
 
 //ListControl
@@ -219,4 +234,41 @@ void User::OnBnClickedUser()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	User::OnOK();
+}
+
+
+HBRUSH User::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何特性
+	if (nCtlColor == CTLCOLOR_STATIC)
+	{
+		pDC->SetBkMode(TRANSPARENT);//<设置背景透明
+		return (HBRUSH)::GetStockObject(NULL_BRUSH);
+	}
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return hbr;
+}
+
+
+void User::OnPaint()
+{
+	//CPaintDC dc(this); // device context for painting
+					   // TODO: 在此处添加消息处理程序代码
+					   // 不为绘图消息调用 CDialogEx::OnPaint()
+	CPaintDC   dc(this);
+	CRect   rect;
+	GetClientRect(&rect);                                 //获取对话框长宽       
+	CDC   dcBmp;                                           //定义并创建一个内存设备环境
+	dcBmp.CreateCompatibleDC(&dc);                         //创建兼容性DC
+	CBitmap   bmpBackground;
+	bmpBackground.LoadBitmap(IDB_BITMAP2);                 //载入资源中的IDB_BITMAP1图片
+	BITMAP   m_bitmap;                                     //图片变量                
+	bmpBackground.GetBitmap(&m_bitmap);                    //将图片载入位图中
+	CBitmap* pbmpOld = dcBmp.SelectObject(&bmpBackground); //将位图选入临时内存设备环境  
+	dc.SetStretchBltMode(COLORONCOLOR);
+	//调用函数显示图片 StretchBlt显示形状可变
+	dc.StretchBlt(0, 0, rect.Width(), rect.Height(), &dcBmp, 0, 0,
+		m_bitmap.bmWidth, m_bitmap.bmHeight, SRCCOPY);
 }

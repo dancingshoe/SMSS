@@ -60,7 +60,7 @@ CSMSSDlg::CSMSSDlg(CWnd* pParent /*=nullptr*/)
 	, m_LoginMM(_T(""))
 	, m_ISAdmin(FALSE)
 {
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_hIcon = AfxGetApp()->LoadIcon(IDI_ICON1);
 }
 
 void CSMSSDlg::DoDataExchange(CDataExchange* pDX)
@@ -80,6 +80,7 @@ BEGIN_MESSAGE_MAP(CSMSSDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_Register, &CSMSSDlg::OnBnClickedButtonRegister)
 	ON_BN_CLICKED(IDC_CHECK_LoginShow, &CSMSSDlg::OnBnClickedCheckLoginshow)
 	ON_BN_CLICKED(IDC_BUTTON_Login, &CSMSSDlg::OnBnClickedButtonLogin)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -161,7 +162,21 @@ void CSMSSDlg::OnPaint()
 	}
 	else
 	{
-		CDialogEx::OnPaint();
+		//CDialog::OnPaint();
+		CPaintDC   dc(this);
+		CRect   rect;
+		GetClientRect(&rect);                                 //获取对话框长宽       
+		CDC   dcBmp;                                           //定义并创建一个内存设备环境
+		dcBmp.CreateCompatibleDC(&dc);                         //创建兼容性DC
+		CBitmap   bmpBackground;
+		bmpBackground.LoadBitmap(IDB_BITMAP1);                 //载入资源中的IDB_BITMAP1图片
+		BITMAP   m_bitmap;                                     //图片变量                
+		bmpBackground.GetBitmap(&m_bitmap);                    //将图片载入位图中
+		CBitmap* pbmpOld = dcBmp.SelectObject(&bmpBackground); //将位图选入临时内存设备环境  
+		dc.SetStretchBltMode(COLORONCOLOR);
+		//调用函数显示图片 StretchBlt显示形状可变
+		dc.StretchBlt(0, 0, rect.Width(), rect.Height(), &dcBmp, 0, 0,
+			m_bitmap.bmWidth, m_bitmap.bmHeight, SRCCOPY);
 	}
 }
 
@@ -227,15 +242,15 @@ void CSMSSDlg::OnBnClickedButtonLogin()
 			Password = (char*)(_bstr_t)SSMS.m_pRecordSet->GetCollect("UserPasswod");
 			if (m_LoginZH == ID && m_LoginMM == Password)
 			{
-				MessageBox(_T("用户登陆成功"));
+				MessageBox(_T("用户登陆成功"), _T("提示"));
 				CDialogEx::OnOK();
 				User dlg;
 				dlg.DoModal();
-				break;
+				return;
 			}
 			SSMS.m_pRecordSet->MoveNext();
 		}
-		//MessageBox(_T("登陆失败,请检查账号或密码是否正确!"), _T("错误提示!"));
+		MessageBox(_T("登陆失败,请检查账号或密码是否正确!"), _T("错误提示"), MB_ICONERROR);
 	}
 	else
 	{
@@ -246,14 +261,29 @@ void CSMSSDlg::OnBnClickedButtonLogin()
 			Password = (char*)(_bstr_t)SSMS.m_pRecordSet->GetCollect("AdminPasswod");
 			if (m_LoginZH == ID && m_LoginMM == Password)
 			{
-				MessageBox(_T("管理员登陆成功"));
+				MessageBox(_T("管理员登陆成功"),_T("提示"));
 				CDialogEx::OnOK();
 				Admin dlg;
 				dlg.DoModal();
-				break;
+				return;
 			}
 			SSMS.m_pRecordSet->MoveNext();
 		}
-		//MessageBox(_T("登陆失败,请检查账号或密码是否正确!"),_T("错误提示!"));
+		MessageBox(_T("登陆失败,请检查账号或密码是否正确!"), _T("错误提示"), MB_ICONERROR);
 	}
+}
+
+
+HBRUSH CSMSSDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何特性
+	if (nCtlColor == CTLCOLOR_STATIC)
+	{
+		pDC->SetBkMode(TRANSPARENT);//<设置背景透明
+		return (HBRUSH)::GetStockObject(NULL_BRUSH);
+	}
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return hbr;
 }

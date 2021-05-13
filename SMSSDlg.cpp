@@ -81,6 +81,7 @@ BEGIN_MESSAGE_MAP(CSMSSDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_CHECK_LoginShow, &CSMSSDlg::OnBnClickedCheckLoginshow)
 	ON_BN_CLICKED(IDC_BUTTON_Login, &CSMSSDlg::OnBnClickedButtonLogin)
 	ON_WM_CTLCOLOR()
+	ON_COMMAND(ID_32772, &CSMSSDlg::ShowUse)
 END_MESSAGE_MAP()
 
 
@@ -286,4 +287,11 @@ HBRUSH CSMSSDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return hbr;
+}
+
+
+void CSMSSDlg::ShowUse()
+{
+	// TODO: 在此添加命令处理程序代码
+	MessageBox(_T("欢迎使用"));
 }

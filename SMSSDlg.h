@@ -43,4 +43,5 @@ public:
 	BOOL m_ISAdmin;
 	static CSMSSDlg* pUser;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg void ShowUse();
 };

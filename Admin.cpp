@@ -44,6 +44,7 @@ BEGIN_MESSAGE_MAP(Admin, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_FindOrder, &Admin::OnBnClickedButtonFindorder)
 	ON_WM_PAINT()
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_BUTTON_Delete2, &Admin::OnBnClickedButtonDelete2)
 END_MESSAGE_MAP()
 
 
@@ -253,4 +254,23 @@ HBRUSH Admin::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return hbr;
+}
+
+
+void Admin::OnBnClickedButtonDelete2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	AdoSql adoSql;
+	UpdateData(TRUE);
+	CString strCmd;
+	int k;
+	k = MessageBox(_T("确认退货吗?"), _T("退货提示"), MB_YESNO);
+	if (k == 7);
+	else {
+		strCmd.Format(_T("delete from tblOrder where OrdID = '%s'"), m_ListAdmin.GetItemText(AdminnItem, 0));
+		adoSql.InitialConn();
+		adoSql.ExcuteCmd(strCmd);
+		MessageBox(_T("下架成功!"));
+	}
+	AdminDisPlay();
 }

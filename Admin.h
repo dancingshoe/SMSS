@@ -37,6 +37,7 @@ public:
 	afx_msg void OnBnClickedButtonFindorder();
 	afx_msg void OnPaint();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg void OnBnClickedButtonDelete2();
 };
 
 extern int AdminnItem;

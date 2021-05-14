@@ -55,6 +55,7 @@
 #define IDC_STATIC_FindOrd              1030
 #define IDC_EDIT_New                    1031
 #define IDC_EDIT_AddName                1031
+#define IDC_BUTTON_Delete2              1031
 #define IDC_EDIT3                       1032
 #define IDC_EDIT_AddPDate               1033
 #define IDC_STATIC_MM1                  1034
